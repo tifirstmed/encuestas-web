@@ -23,21 +23,48 @@ const productos = [
   'Finura',
   'Magne One',
   'Gioxil 36',
-  'Nad Plus',
+  'NAD+',
   'Pylori Defense',
   'Inulina',
-  'NAD RESVERATROL',
+  'NAD + RESVERATROL',
   'Skin Bright',
   'Mood Support',
-  'Dormilon M',
+  'Dormilón M',
   'Probiat',
   'C-Joven',
   'C-Joven Plus',
-  'Megadosis de Vitamina C',
+  'Vitamina C',
   'Vitamina C + ALA',
   'Nerverón',
   'NMN',
   'Infladex',
+  'Hepaprotec',
+  'Resveratrol',
+  'Bio Slender Plus',
+  'Magnesio Glicinato',
+  'Gastro Plus',
+  'Alergest',
+  'Cáncer Support Forte',
+  'Flexost',
+  'Osteo Plus',
+  'Gioxil D',
+  'Max Forte Hombre',
+  'Men Ut Plus',
+  'Sperm Mobility',
+  'Cebrocaz',
+  'Ashwagandha +',
+  'Memory Plus',
+  'Stressnol',
+  'Julvelin',
+  'Cúrcuma +',
+  'Renal Plus',
+  'Reumostop',
+  'Testogel',
+  'BIRH 3',
+  'Inositol',
+  'Inmuno Defense',
+  'Neurosine',
+  'Energizeme',
 ];
 
 type User = {
@@ -149,7 +176,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           console.log('Error al enviar el mensaje a Woztell');
         }
       } else {
-        console.log('No se envió el mensaje a Woztell porque el canal es eventos');
+        console.log(
+          'No se envió el mensaje a Woztell porque el canal es eventos'
+        );
       }
     } catch (error) {
       console.log(error);
