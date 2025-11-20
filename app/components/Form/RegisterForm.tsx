@@ -77,6 +77,7 @@ type User = {
   canal: string;
   age: string;
   treatment: string;
+  nickname: string;
 };
 const BACK_GOOGLE_SHEETS = process.env.NEXT_PUBLIC_BACK_GOOGLE_SHEETS as string;
 
@@ -89,9 +90,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<User>({
     resolver: zodResolver(userSchema),
+    defaultValues: {
+      treatment: 'No', // 👈 valor inicial
+    },
   });
   const { updateName, utmSource } = useProductStore();
   const onSubmit = async (data: User) => {
@@ -140,6 +145,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           description: data.description,
           spreadsheetId: ID_SHEET_GOOGLE,
           canal: data.canal,
+          nickname: data.nickname,
         },
         {
           headers: {
@@ -236,6 +242,19 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
         </div>
         <div className="flex flex-col h-[32px] lg:h-[38px] w-[310px] sm:w-full">
           <input
+            placeholder="Nickname"
+            className="border border-black px-2 rounded-[10px] focus:outline-black h-[32px] md:h-full text-sm md:text-base"
+            id="nickname"
+            {...register('nickname')}
+          />
+          {errors.nickname && (
+            <span className="text-red-500 text-xs">
+              {errors.nickname.message}
+            </span>
+          )}
+        </div>
+        <div className="flex flex-col h-[32px] lg:h-[38px] w-[310px] sm:w-full">
+          <input
             placeholder="Celular"
             className="border border-black px-2 rounded-[10px] focus:outline-black h-[32px] md:h-full text-sm md:text-base"
             id="phoneNumber"
@@ -250,6 +269,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
         <div className="flex flex-col h-[32px] lg:h-[38px] w-[310px] sm:w-full">
           <input
             placeholder="Edad"
+            defaultValue="+18"
             className="border border-black px-2 rounded-[10px] focus:outline-black h-[32px] md:h-full text-sm md:text-base"
             id="age"
             {...register('age')}
@@ -271,21 +291,25 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
         </div>
         <div className="flex flex-col space-y-2 w-[310px] sm:w-full">
           <label className="text-sm md:text-base font-medium">
-            ¿Esta llevando tratamiento?
+            ¿Está llevando tratamiento?
           </label>
-          <input
-            placeholder="¿Esta llevando tratamiento?"
-            className="border border-black px-2 rounded-[10px] focus:outline-black h-[32px] md:h-full text-sm md:text-base"
+          <select
             id="treatment"
+            className={`border px-2 rounded-[10px] focus:outline-black h-[32px] md:h-full text-sm md:text-base
+      ${watch('treatment') === 'No' ? 'border-red-500 text-red-500' : ''}
+      ${watch('treatment') === 'Si' ? 'border-[#64A231] text-[#64A231]' : ''}`}
+            defaultValue="No"
             {...register('treatment')}
-          />
+          >
+            <option value="Si">Sí</option>
+            <option value="No">No</option>
+          </select>
           {errors.treatment && (
             <span className="text-red-500 text-xs">
               {errors.treatment.message}
             </span>
           )}
         </div>
-
         <div className="flex flex-col w-[310px] sm:w-full">
           <textarea
             placeholder="¿Qué desea tratar?"
@@ -304,9 +328,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           <select
             className="border border-black px-2 rounded-[10px] focus:outline-black h-[32px] md:h-full text-sm md:text-base"
             id="priority"
+            defaultValue="Alta"
             {...register('priority')}
           >
-            <option value="Baja">Baja</option>
             <option value="Media">Media</option>
             <option value="Alta">Alta</option>
           </select>
