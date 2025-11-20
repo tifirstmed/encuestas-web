@@ -21,7 +21,6 @@ export async function sendWoztellMessage(data) {
       {
         type: 'TEMPLATE',
         integrationId: '6812b4c6da1aa505279c0fc0',
-        wabaId: '1373463544100794',
         wabaId:WABA_ID,
         namespace: 'b0b5781c_ad9f_45e1_9703_31f096e87a16',
         components: [
