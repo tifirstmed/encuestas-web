@@ -3,7 +3,6 @@ import { z } from 'zod';
 export const userSchema = z.object({
   name: z.string().min(3, { message: 'Al menos 3 caracteres' }),
   lastname: z.string().min(3, { message: 'Al menos 3 caracteres' }),
-    nickname: z.string().min(1, { message: 'El nickname es obligatorio' }),
   phoneNumber: z
     .string()
     .regex(/^\d{9}$/, { message: 'Teléfono debe tener 9 dígitos' }),
